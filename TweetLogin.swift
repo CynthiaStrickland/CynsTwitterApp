@@ -57,7 +57,7 @@ class TweetLogin {
                         })
                     }
                 } else {
-                    println("Failed to access account")
+                    print("Failed to access account")
                 }
         })
     }

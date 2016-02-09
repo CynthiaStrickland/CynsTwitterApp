@@ -9,10 +9,10 @@
 import UIKit
 
 class User: NSObject {
-    let name: String?
-    let profileImageURL: String
-    let location: String?
-    let createdAt: String?
+    var name: String?
+    var profileImageURL: String
+    var location: String?
+    var createdAt: String?
     
     init(name: String, profileImageURL: String, location: String, createdAt: String) {
         self.name = name
