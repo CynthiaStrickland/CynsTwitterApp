@@ -8,26 +8,31 @@
 
 import UIKit
 import Accounts
+import Social
 
 typealias TwitterLoginCompletion = (String?, ACAccount?) -> ()
 
 class TweetLogin {
 
+            //MAKE A SINGLETON
+    static let shared = TweetLogin()
+    private init() {}
+    
     func getTimeLine(completion: TwitterLoginCompletion) {
-        let account = ACAccountStore()
-        let accountType = account.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
+        let accountStore = ACAccountStore()
+        let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
         
-        account.requestAccessToAccountsWithType(accountType, options: nil,
+        accountStore.requestAccessToAccountsWithType(accountType, options: nil,
             completion: {(success: Bool, error: NSError!) -> Void in
                 
                 if success {
-                    let arrayOfAccounts = account.accountsWithAccountType(accountType)
+                    let arrayOfAccounts = accountStore.accountsWithAccountType(accountType)
                     
                     if arrayOfAccounts.count > 0 {
                         let twitterAccount = arrayOfAccounts.last as! ACAccount
                         
                         let requestURL = NSURL(string:
-                            "https://api.twitter.com/1.1/statuses/user_timeline.json")
+                            "https://api.twitter.com/1.1/statuses/user_timeline.json")   //URL for getting tweets
                         
                         let parameters = ["screen_name" : "@techotopia",
                             "include_rts" : "0",
@@ -57,7 +62,7 @@ class TweetLogin {
                         })
                     }
                 } else {
-                    print("Failed to access account")
+                    completion("Failed to access account", nil)
                 }
         })
     }

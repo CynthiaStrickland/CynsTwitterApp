@@ -26,8 +26,9 @@ class TwitterService: NSObject {
         static let sharedService = TwitterService()
         
         var account: ACAccount?
-        var user: User?
         var screenName: String?
+        var user: User?
+
         
         class func tweetsFromHomeTimeline(completion: TweetCompletion) {
             let timelineUrl = NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json")
@@ -38,7 +39,7 @@ class TwitterService: NSObject {
                 request.performRequestWithHandler({ (data, response, error) -> Void in
                     switch response.statusCode {
                     case 200...299:
-                        let tweets = TweetJSONParser.tweetFromJSONData(data)
+                        let tweets = TweetJSONParser.tweetsFromJSONData(data)
                         completion(nil, tweets)
                     case 400...499:
                         completion("Client error returned status code: \(response.statusCode)", nil)
@@ -62,7 +63,7 @@ class TwitterService: NSObject {
                     case 200...299:
                         do {
                             let userData = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
-                            if let user = TweetJSONParser.userFromData(userData!) {
+                            if let user = TweetJSONParser.userFromJSONData(data) {
                                 completion(nil, user)
                             }
                         } catch _ {}
@@ -90,7 +91,7 @@ class TwitterService: NSObject {
                 request.performRequestWithHandler({ (data, response, error) -> Void in
                     switch response.statusCode {
                     case 200...299:
-                        let tweets = TweetJSONParser.tweetFromJSONData(data)
+                        let tweets = TweetJSONParser.tweetsFromJSONData(data)
                         completion(nil, tweets)
                     case 400...499:
                         completion("Client error returned status code: \(response.statusCode)", nil)

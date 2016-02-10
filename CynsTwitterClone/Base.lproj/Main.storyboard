@@ -57,6 +57,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="BnZ-8z-kQX" id="seA-5Y-2Nv"/>
+                        <outlet property="tweetCell" destination="O0N-Gm-cjj" id="PMV-xE-f1E"/>
+                        <outlet property="tweetTitleLabel" destination="TXY-sB-dtj" id="BbK-SL-4wY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

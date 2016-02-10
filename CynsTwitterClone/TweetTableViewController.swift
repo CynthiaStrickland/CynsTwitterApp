@@ -10,6 +10,7 @@ import UIKit
 
 class TweetTableViewController: UIViewController, UITableViewDataSource {
 
+    var refreshControl : UIRefreshControl?
     var datasource = [Tweet](){
         didSet {
             tableView.reloadData()
@@ -23,6 +24,11 @@ class TweetTableViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.dataSource = self
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl?.addTarget(self, action: "refreshTweets:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(self.refreshControl!)
     }
     
     override func viewWillAppear(animated: Bool) {

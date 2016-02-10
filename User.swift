@@ -9,12 +9,14 @@
 import UIKit
 
 class User: NSObject {
+    var screenName: String?
     var name: String?
     var profileImageURL: String
     var location: String?
     var createdAt: String?
     
-    init(name: String, profileImageURL: String, location: String, createdAt: String) {
+    init(screenName: String?, name: String, profileImageURL: String, location: String, createdAt: String) {
+        self.screenName = screenName
         self.name = name
         self.profileImageURL = profileImageURL
         self.location = location
