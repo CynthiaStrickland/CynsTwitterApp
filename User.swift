@@ -8,19 +8,23 @@
 
 import UIKit
 
-class User: NSObject {
-    var screenName: String?
-    var name: String?
-    var profileImageURL: String
-    var location: String?
-    var createdAt: String?
+class User {
     
-    init(screenName: String?, name: String, profileImageURL: String, location: String, createdAt: String) {
-        self.screenName = screenName
+    var name: String
+    var profileImageURL: String
+    var image: UIImage?
+    var screenName: String
+    var background: UIImage?
+    var backgroundUrl: String
+    let location: String
+    
+    init(name: String, profileImageURL: String, screenName: String, backgroundUrl:String, location: String) {
         self.name = name
         self.profileImageURL = profileImageURL
+        self.screenName = screenName
+        self.backgroundUrl = backgroundUrl
         self.location = location
-        self.createdAt = createdAt
         
     }
+    
 }

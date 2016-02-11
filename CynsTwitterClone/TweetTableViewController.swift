@@ -10,6 +10,8 @@ import UIKit
 
 class TweetTableViewController: UIViewController, UITableViewDataSource {
 
+    @IBOutlet weak var refreshBarButton: UIBarButtonItem!
+    
     var refreshControl : UIRefreshControl?
     var datasource = [Tweet](){
         didSet {
@@ -22,8 +24,17 @@ class TweetTableViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tweetCell: UITableViewCell!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.tableView.dataSource = self
+        
+        self.refreshBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "getTweets")
+        self.navigationItem.rightBarButtonItem = self.refreshBarButton
+        
+//        self.spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+//        self.spinner.hidesWhenStopped = true
+//        
+//        self.refresh.addTarget(self, action: "pullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh")

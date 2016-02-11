@@ -19,10 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func TwitterKey() {
-        let keys = (twitterConsumerKey:"8VGnXAqyyDWHLu9bdjC2G6Vhu", twitterConsumerSecret:"BWw4hhKFdalzHUbTIbp0w2Etg7ifRidlmm1zYofdsuYwy9mnAx")
+        let key = (twitterConsumerKey:"8VGnXAqyyDWHLu9bdjC2G6Vhu")
+        let secret = (twitterConsumerSecret:"BWw4hhKFdalzHUbTIbp0w2Etg7ifRidlmm1zYofdsuYwy9mnAx")
         
-        let twitterConsumerKey = keys.twitterConsumerKey
-        let twitterConsumerSecret = keys.twitterConsumerSecret
     }
 }
 

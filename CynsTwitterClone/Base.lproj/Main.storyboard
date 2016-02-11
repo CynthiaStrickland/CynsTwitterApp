@@ -53,12 +53,15 @@
                             <constraint firstItem="BnZ-8z-kQX" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="jm6-wk-obJ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="qaT-N4-ch9"/>
+                    <navigationItem key="navigationItem" id="qaT-N4-ch9">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="bhS-B6-KSd">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="refreshBarButton" destination="bhS-B6-KSd" id="pyd-Gh-MQB"/>
                         <outlet property="tableView" destination="BnZ-8z-kQX" id="seA-5Y-2Nv"/>
-                        <outlet property="tweetCell" destination="O0N-Gm-cjj" id="PMV-xE-f1E"/>
-                        <outlet property="tweetTitleLabel" destination="TXY-sB-dtj" id="BbK-SL-4wY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

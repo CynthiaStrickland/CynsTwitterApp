@@ -8,15 +8,22 @@
 
 import UIKit
 
-class Tweet: NSObject {
-    let text: String?
-    let id: String?
-    let user: User?
+class Tweet {
     
-    init(text: String, id: String, user: User? = nil) {
-        self.text = text
+    let text: String
+    let id: String
+    var user: User?
+    let rqText: String?
+    let rqUser: User?
+    var isRetweet: Tweet?
+    
+    init(text : String, rqText: String? = nil, id : String, user: User? = nil, rqUser: User? = nil, isRetweet: Tweet?=nil) {
+        self.text =  text
         self.id = id
         self.user = user
+        self.isRetweet = isRetweet
+        self.rqUser = rqUser
+        self.rqText = rqText
     }
     
 }
