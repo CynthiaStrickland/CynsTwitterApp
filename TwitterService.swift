@@ -16,11 +16,11 @@ class TwitterService {
     var account : ACAccount?
     var user : User?
     
-    class func tweetsFromHomeTimeline(completion: (String?, [Tweet]?) -> () ) {
-        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json"), parameters: nil)
+    class func tweetsFromHomeTimeline(_ completion: (String?, [Tweet]?) -> () ) {
+        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, url: URL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json"), parameters: nil)
         if let account = self.sharedService.account {
             request.account = account
-            request.performRequestWithHandler { (data, response, error) -> Void in
+            request.perform { (data, response, error) -> Void in
                 if let error = error {
                     print(error.description)
                     completion("ERROR: SLRequest type GET for /1.1/statuses/home_timeline.json could not be completed.", nil); return
@@ -41,27 +41,27 @@ class TwitterService {
         }
     }
     
-    class func getAuthUser(completion: (String?, User?)-> ()) {
+    class func getAuthUser(_ completion: (String?, User?)-> ()) {
         
-        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/account/verify_credentials.json"), parameters: nil)
+        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, url: URL(string: "https://api.twitter.com/1.1/account/verify_credentials.json"), parameters: nil)
         
         if let account = self.sharedService.account {
             request.account = account
-            request.performRequestWithHandler { (data, response, error) -> Void in
+            request.perform { (data, response, error) -> Void in
                 
                 if let error = error {
                     print(error)
                     completion("ERROR: SLRequest type GET for /1.1/account/verify_credentials.json could not be completed.", nil); return
                 }
                 
-                if let data = NSString(data: data, encoding: NSUTF8StringEncoding) {
+                if let data = NSString(data: data, encoding: String.Encoding.utf8) {
                     print(data)
                 }
                 
                 switch response.statusCode {
                 case 200...299:
                     do {
-                        if let userData = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String : AnyObject] {
+                        if let userData = try JSONSerialization.jsonObject(with: data, options: []) as? [String : AnyObject] {
                             if let user = TweetJSONParser.userFromData(userData){
                                 completion(nil, user); return
                             }

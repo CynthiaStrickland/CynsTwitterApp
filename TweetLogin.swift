@@ -12,16 +12,16 @@ import Social
 
 class TweetLogin {
     
-    func loginTwitter(completionHandler : (String?, ACAccount?) -> (Void)) {
+    func loginTwitter(_ completionHandler : (String?, ACAccount?) -> (Void)) {
     let accountStore = ACAccountStore()
-    let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
-    accountStore.requestAccessToAccountsWithType(accountType, options: nil) { (granted, error) -> Void in
+    let accountType = accountStore.accountType(withAccountTypeIdentifier: ACAccountTypeIdentifierTwitter)
+    accountStore.requestAccessToAccounts(with: accountType, options: nil) { (granted, error) -> Void in
         if let _ = error {
             completionHandler("Please sign in", nil)
             return
         } else {
             if granted {
-                if let account = accountStore.accountsWithAccountType(accountType).first as? ACAccount {
+                if let account = accountStore.accounts(with: accountType).first as? ACAccount {
                     completionHandler(nil, account)
                     print("ACCESS GRANTED")
                 }

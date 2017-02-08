@@ -29,7 +29,7 @@ class TweetTableViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         self.tableView.dataSource = self
         
-        self.refreshBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "getTweets")
+        self.refreshBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: "getTweets")
         self.navigationItem.rightBarButtonItem = self.refreshBarButton
         
 //        self.spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
@@ -39,11 +39,11 @@ class TweetTableViewController: UIViewController, UITableViewDataSource {
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl?.addTarget(self, action: "refreshTweets:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl?.addTarget(self, action: "refreshTweets:", for: UIControlEvents.valueChanged)
         self.tableView.addSubview(self.refreshControl!)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()                     //Do I really need this since I have a property observer?
         
     }
@@ -55,13 +55,13 @@ class TweetTableViewController: UIViewController, UITableViewDataSource {
 
     //MARK:     ************  TABLEVIEW **************
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return datasource.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("tweetCell", forIndexPath: indexPath)
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath)
         let theTweet = self.datasource[indexPath.row]
         cell.textLabel?.text = theTweet.text
         
@@ -69,14 +69,14 @@ class TweetTableViewController: UIViewController, UITableViewDataSource {
         
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
-        if editingStyle == .Delete {
-            datasource.removeAtIndex(indexPath.row)
+        if editingStyle == .delete {
+            datasource.remove(at: indexPath.row)
             self.tableView.reloadData()
         }
     }
