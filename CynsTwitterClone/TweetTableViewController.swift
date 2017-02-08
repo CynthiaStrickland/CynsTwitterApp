@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Foundation
 
 class TweetTableViewController: UIViewController, UITableViewDataSource {
 
@@ -29,7 +28,7 @@ class TweetTableViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         self.tableView.dataSource = self
         
-        self.refreshBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: "getTweets")
+        self.refreshBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: Selector("getTweets"))
         self.navigationItem.rightBarButtonItem = self.refreshBarButton
         
 //        self.spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
@@ -39,7 +38,7 @@ class TweetTableViewController: UIViewController, UITableViewDataSource {
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl?.addTarget(self, action: "refreshTweets:", for: UIControlEvents.valueChanged)
+        self.refreshControl?.addTarget(self, action: Selector("refreshTweets:"), for: UIControlEvents.valueChanged)
         self.tableView.addSubview(self.refreshControl!)
     }
     

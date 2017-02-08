@@ -16,33 +16,37 @@ class TwitterService {
     var account : ACAccount?
     var user : User?
     
-    class func tweetsFromHomeTimeline(_ completion: (String?, [Tweet]?) -> () ) {
-        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, url: URL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json"), parameters: nil)
-        if let account = self.sharedService.account {
-            request?.account = account
-            request?.perform { (data, response, error) -> Void in
-                if let error = error {
-                    return
-                }
-                switch response?.statusCode {
-                case 200..<299:
-                    let tweets = TweetJSONParser.TweetFromJSONData(data!)
-                    completion(nil, tweets)
-                case 400...499:
-                    print(response?.statusCode)
-                    completion("ERROR: SLRequest type GET for /1.1/statuses/home_timeline.json returned status code \(String(describing: response?.statusCode)) [user input error].", nil)
-                case 500...599:
-                    completion("ERROR: SLRequest type GET for /1.1/statuses/home_timeline.json returned status code \(String(describing: response?.statusCode)) [server side error].", nil)
-                default:
-                    completion("ERROR: SLRequest type GET for /1.1/statuses/home_timeline.json returned status code \(String(describing: response?.statusCode)) [unknown error].", nil)
-                }
-            }
-        }
-    }
+//    class func tweetsFromHomeTimeline(_ completion: (String?, [Tweet]?) -> () ) {
+//        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, url: URL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json"), parameters: nil)
+//        if let account = self.sharedService.account {
+//            request?.account = account
+//            request?.perform { (data, response, error) -> Void in
+//                if let error = error {
+//                    return
+//                }
+//                switch response?.statusCode {
+//                case 200..<299:
+//                    let tweets = TweetJSONParser.TweetFromJSONData(data!)
+//                    completion(nil, tweets)
+//                case 400...499:
+//                    print(response?.statusCode)
+//                    completion("ERROR: SLRequest type GET for /1.1/statuses/home_timeline.json returned status code \(String(describing: response?.statusCode)) [user input error].", nil)
+//                case 500...599:
+//                    completion("ERROR: SLRequest type GET for /1.1/statuses/home_timeline.json returned status code \(String(describing: response?.statusCode)) [server side error].", nil)
+//                default:
+//                    completion("ERROR: SLRequest type GET for /1.1/statuses/home_timeline.json returned status code \(String(describing: response?.statusCode)) [unknown error].", nil)
+//                }
+//            }
+//        }
+//    }
     
     class func getAuthUser(_ completion:(String?, User?)-> ()) {
         
-        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, url: URL(string: "https://api.twitter.com/1.1/account/verify_credentials.json"), parameters: nil)
+        let request = SLRequest(forServiceType:
+                    SLServiceTypeTwitter,
+                    requestMethod: SLRequestMethod.GET,
+                    url: URL(string: "https://api.twitter.com/1.1/account/verify_credentials.json"),
+                    parameters: nil)
         
         if let account = self.sharedService.account {
             request?.account = account
